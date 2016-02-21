@@ -22,7 +22,7 @@ for i in torrent_data:
         else:
             if tc.get_torrent(i[3]).percentDone != 1:
                 mysql("UPDATE Files SET DL = 1 WHERE ID = '%(id)s'" % {"id": i[0]}, None)
-        if tc.get_torrent(i[3]).uploadRatio == 2:
+        if tc.get_torrent(i[3]).uploadRatio == 3:
             mysql("UPDATE Files SET ID_TORRENT = '%(id_torrent)s' WHERE ID = '%(id)s'" % {"id_torrent": 0, "id": i[0]}, None)
             tc.remove_torrent(i[3])
     else:

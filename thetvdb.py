@@ -72,6 +72,5 @@ serial_path = format(initial.config.get('transmission', 'download_dir')).decode(
 tvshow = open(serial_path.encode('utf-8') + '/tvshow.nfo', 'w')
 tvshow.write(url)
 tvshow.close()
-os.chmod(serial_path.encode('utf-8') + '/tvshow.nfo', stat.S_IRWXU)
-os.chmod(serial_path.encode('utf-8') + '/tvshow.nfo', stat.S_IRWXG)
-os.chmod(serial_path.encode('utf-8') + '/tvshow.nfo', stat.S_IRWXO)
+os.chmod(serial_path.encode('utf-8') + '/tvshow.nfo', 0777)
+
