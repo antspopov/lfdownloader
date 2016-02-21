@@ -6,7 +6,7 @@ from lxml.html import tostring
 import urllib2
 import MySQLdb
 import ConfigParser
-import os
+import os, stat
 import logging
 import sys
 import transmissionrpc
@@ -15,6 +15,15 @@ import base64
 
 if not os.path.exists('/var/log/lf_d'):
     os.makedirs('/var/log/lf_d')
+    os.chmod("/var/log/lf_d", stat.S_IRWXU)
+    os.chmod("/var/log/lf_d", stat.S_IRWXG)
+    os.chmod("/var/log/lf_d", stat.S_IRWXO)
+    file = open("/var/log/lf_d/lf_d.log", "w")
+    file.write("Created")
+    file.close()
+    os.chmod("/var/log/lf_d/lf_d.log", stat.S_IRWXU)
+    os.chmod("/var/log/lf_d/lf_d.log", stat.S_IRWXG)
+    os.chmod("/var/log/lf_d/lf_d.log", stat.S_IRWXO)
     logging.warning('Не найден файл лога. Создание...')
 
 logging.basicConfig(format='%(filename)s[LINE:%(lineno)d]# %(levelname)-8s [%(asctime)s]  %(message)s', level=logging.DEBUG, filename='/var/log/lf_d/lf_d.log')

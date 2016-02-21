@@ -267,6 +267,6 @@ $(document).ready(function(){
     setInterval(function () {
         status_episode();
         status_serial();
-    }, 5000);
+    }, 30000);
 });
 

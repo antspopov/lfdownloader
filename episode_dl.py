@@ -3,7 +3,7 @@
 
 from lxml.html import parse
 import urllib2
-import os
+import os, stat
 import logging
 import sys
 import bencode
@@ -81,6 +81,9 @@ if result_episode[8] == 0:
     serial_path = format(initial.config.get('transmission', 'download_dir')).decode('utf-8') + '/' + format(result_serial[2]).replace('(','').replace(')','').strip()
     if not os.path.exists(serial_path.encode('utf-8')):
         os.makedirs(serial_path.encode('utf-8'))
+        os.chmod(serial_path.encode('utf-8'), stat.S_IRWXU)
+        os.chmod(serial_path.encode('utf-8'), stat.S_IRWXG)
+        os.chmod(serial_path.encode('utf-8'), stat.S_IRWXO)
         subprocess.Popen([initial.ROOT_PATH + '/thetvdb.py ' + result_serial[0]], shell=True)
     mysql("INSERT INTO Files SET Name = '%(name)s', Path_DL = '%(path_dl)s', ID_TORRENT = '%(id_torrent)s', DL = 1"%{"name":bencode.bdecode(torrent_quality)['info']['name'], "path_dl":download_path, "id_torrent":id_torrent}, None)
     result_file = mysql("SELECT * FROM Files WHERE Name = '%(name)s'"%{"name":bencode.bdecode(torrent_quality)['info']['name']}, 'one')
