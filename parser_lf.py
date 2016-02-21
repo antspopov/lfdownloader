@@ -19,7 +19,7 @@ for i in hrefs:
         S_Name = i.text.strip().replace("'","")
         S_Name_ENG = i.cssselect('span')[0].text.strip().replace("'","")
         mysql("INSERT INTO Serials SET ID = '%(id)s' , Name = '%(name)s', Name_ENG = '%(name_eng)s' ON DUPLICATE KEY UPDATE Name = '%(name)s', Name_ENG  = '%(name_eng)s'"%{"id":S_ID, "name":S_Name, "name_eng":S_Name_ENG }, None)
-        print S_Name
+        ##print S_Name
         serial='http://lostfilm.tv/browse.php?cat=' + S_ID
         result = opener.open(serial)
         page = parse(result).getroot()
